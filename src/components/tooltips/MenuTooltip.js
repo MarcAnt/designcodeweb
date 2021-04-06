@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import {tooltipData} from '../../data/menuData';
 import MenuButtons from '../buttons/MenuButtons';
 
 
-const MenuTooltip = () => {
+const MenuTooltip = (props) => {
 
-    const [isOpen, setIsOpen] = useState(false)
+  const {isOpen} = props;
+  
    return (
-        <Wrapper isOpen={isOpen} onClick={ () => setIsOpen(!isOpen) }> 
+        <Wrapper isOpen={isOpen} > 
             {tooltipData.map( (item, index) => ( <MenuButtons item={item} key={index} /> )  ) }
         </Wrapper>
    );
@@ -27,11 +28,15 @@ const Wrapper = styled.div`
   border-radius: 20px;
   padding: 20px;
 
-  opacity: ${props => (props.isOpen ? 1 : 0.5)}
+  opacity: ${props => (props.isOpen ? 1 : 0)};
   z-index: 100;
   display: grid;
   gap: 10px;
   grid-template-columns: 150px;
+  transition: 0.3s ease-in-out;
+ 
+  visibility: ${props => (props.isOpen ? "visible" : "hidden")};
+  transform: ${props => (props.isOpen ? "skewY(0deg) rotate(0deg) translateY(0px)" : "skewY(0deg) rotate(0deg) translateY(0px)")};
 `
 
 
